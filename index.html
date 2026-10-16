@@ -4,315 +4,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+
     <title>JourneyCraft | Customer Journey Mapping</title>
+
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fc;
-            color: #1e293b;
-        }
-
-        button, input, textarea, select { font: inherit; }
-        button { cursor: pointer; }
-        .hidden { display: none !important; }
-
-        .auth-container {
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 20px;
-        }
-
-        .auth-card, .panel, .journey-card, .stage-card {
-            background: white;
-            border: 1px solid #e0e7f0;
-            border-radius: 14px;
-            padding: 22px;
-            box-shadow: 0 5px 20px rgba(25, 50, 90, .04);
-        }
-
-        .auth-card { width: 100%; max-width: 420px; }
-        .auth-card h1, .brand { color: #245cf5; }
-        .field { margin: 16px 0; }
-        .field label { display: block; font-weight: 600; margin-bottom: 7px; }
-
-        .field input, .field textarea, .field select {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            background: white;
-        }
-
-        .field textarea { resize: vertical; }
-        .btn {
-            border: 0;
-            border-radius: 8px;
-            padding: 11px 16px;
-            background: #245cf5;
-            color: white;
-            font-weight: 600;
-        }
-
-        .btn.secondary { background: #eaf1ff; color: #2451bc; }
-        .btn.danger { background: #fff0f0; color: #b42318; }
-        .btn:disabled { opacity: .6; cursor: wait; }
-        .full { width: 100%; }
-        .muted { color: #64748b; }
-        .message { overflow-wrap: anywhere; font-size: 14px; }
-
-        .app-layout { display: flex; min-height: 100vh; }
-        .sidebar {
-            width: 245px;
-            padding: 28px 18px;
-            background: white;
-            border-right: 1px solid #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .brand { font-size: 25px; font-weight: 800; margin: 0 0 18px; }
-        .nav-button {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 13px;
-            margin: 4px 0;
-            border: 0;
-            border-radius: 9px;
-            background: transparent;
-            color: #475569;
-        }
-
-        .nav-button.active, .nav-button:hover {
-            background: #edf3ff;
-            color: #245cf5;
-        }
-
-        .sidebar-bottom { margin-top: auto; }
-        .main-content { flex: 1; min-width: 0; padding: 30px; }
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 28px;
-        }
-
-        .page-title { margin: 0 0 8px; font-size: 30px; }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-            margin: 22px 0;
-        }
-
-        .stat-number { font-size: 30px; font-weight: 800; margin: 8px 0; }
-        .journey-list, .stage-list { display: grid; gap: 16px; margin-top: 20px; }
-        .journey-card h3 { margin-top: 0; }
-        .card-actions, .stage-heading, .editor-actions {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .stage-card { border-top: 4px solid #245cf5; }
-        .stage-heading { margin-bottom: 14px; }
-        .stage-heading h3 { margin: 0; color: #245cf5; }
-        .two-columns {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0 16px;
-        }
-
-        .empty-state {
-            padding: 35px;
-            text-align: center;
-            border: 1px dashed #cbd5e1;
-            border-radius: 12px;
-            background: white;
-        }
-
-        .status { font-size: 13px; color: #64748b; }
-        .status.saved { color: #15803d; }
-        .status.error { color: #b42318; }
-
-        @media (max-width: 800px) {
-            .app-layout { flex-direction: column; }
-            .sidebar { width: 100%; padding: 18px; }
-            .sidebar-bottom { margin-top: 0; }
-            .main-content { padding: 18px; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .two-columns { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 
 <body>
-    <!-- Sign-in and sign-up screen -->
-    <section id="authSection" class="auth-container">
+
+    <!-- ================= AUTHENTICATION ================= -->
+
+    <section id="authSection" class="auth-section">
         <div class="auth-card">
-            <h1>JourneyCraft</h1>
-            <p class="muted">Save and manage your customer journeys.</p>
+
+            <a href="#" class="brand auth-brand">
+                <span class="brand-icon">J</span>
+                <span>JourneyCraft</span>
+            </a>
+
+            <div class="auth-intro">
+                <span class="eyebrow">CUSTOMER EXPERIENCE PLATFORM</span>
+                <h1 id="authHeading">Welcome Back</h1>
+                <p>Understand your customers. Improve every experience.</p>
+            </div>
 
             <form id="authForm">
-                <div class="field">
+                <div class="form-group">
                     <label for="authEmail">Email address</label>
-                    <input id="authEmail" type="email"
-                           autocomplete="email" required
-                           placeholder="you@example.com">
+                    <input
+                        type="email"
+                        id="authEmail"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required>
                 </div>
 
-                <div class="field">
+                <div class="form-group">
                     <label for="authPassword">Password</label>
-                    <input id="authPassword" type="password"
-                           autocomplete="current-password"
-                           minlength="6" required
-                           placeholder="At least 6 characters">
+                    <input
+                        type="password"
+                        id="authPassword"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        minlength="6"
+                        required>
                 </div>
 
-                <button id="authSubmit" class="btn full" type="submit">
+                <button type="submit" id="authSubmit" class="btn-primary full-button">
                     Sign In
                 </button>
 
-                <button id="authToggle" class="btn secondary full"
-                        type="button" style="margin-top:10px">
-                    Need an account? Sign Up
-                </button>
-
-                <p id="authMessage" class="message" role="status"></p>
+                <p id="authMessage" class="message" aria-live="polite"></p>
             </form>
+
+            <button type="button" id="authToggle" class="auth-toggle">
+                New to JourneyCraft? Create an account
+            </button>
+
+            <p class="auth-footer">Designed to make customer experiences better.</p>
         </div>
     </section>
 
-    <!-- Main application; visible after sign-in -->
-    <div id="appLayout" class="app-layout hidden">
-        <aside class="sidebar">
-            <div>
-                <h2 class="brand">JourneyCraft</h2>
-                <p class="muted">WORKSPACE</p>
 
-                <button class="nav-button active" data-page="dashboard">
-                    ▦ Dashboard
+    <!-- ================= MAIN APPLICATION ================= -->
+
+    <div id="appLayout" class="app-layout hidden">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <a href="#" class="brand sidebar-brand">
+                <span class="brand-icon">J</span>
+                <span>JourneyCraft</span>
+            </a>
+
+            <div class="workspace-label">WORKSPACE</div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <button type="button" class="nav-button active" data-page="dashboard">
+                    <span class="nav-icon">⌂</span>
+                    <span>Dashboard</span>
                 </button>
-                <button class="nav-button" data-page="journeys">
-                    ↗ My Journeys
+
+                <button type="button" class="nav-button" data-page="journeys">
+                    <span class="nav-icon">↗</span>
+                    <span>Customer Journeys</span>
                 </button>
-                <button class="nav-button" data-page="customers">
-                    ♙ Customers
+
+                <button type="button" class="nav-button" data-page="customers">
+                    <span class="nav-icon">♙</span>
+                    <span>Customers</span>
                 </button>
-                <button class="nav-button" data-page="insights">
-                    ◉ Insights
+
+                <button type="button" class="nav-button" data-page="feedback">
+                    <span class="nav-icon">☷</span>
+                    <span>Customer Feedback</span>
                 </button>
-            </div>
+
+                <button type="button" class="nav-button" data-page="insights">
+                    <span class="nav-icon">▥</span>
+                    <span>Journey Insights</span>
+                </button>
+
+            </nav>
 
             <div class="sidebar-bottom">
-                <p><strong>Customer Experience</strong></p>
-                <p class="muted">Design better journeys.</p>
-                <button id="signOutBtn" class="btn secondary full">
+                <div class="sidebar-help">
+                    <div class="help-icon">✦</div>
+                    <strong>Improve every journey</strong>
+                    <p>Discover pain points and turn feedback into better experiences.</p>
+                </div>
+
+                <button type="button" id="signOutBtn" class="signout-button">
+                    <span>↪</span>
                     Sign Out
                 </button>
+
+                <div class="sidebar-version">JourneyCraft · Customer Experience</div>
             </div>
+
         </aside>
 
+
+        <!-- MAIN CONTENT -->
+
         <main class="main-content">
+
+            <!-- TOP BAR -->
+
             <header class="topbar">
-                <div>
-                    <p class="muted">Workspace / Overview</p>
-                    <h1 id="pageHeading" class="page-title">Dashboard</h1>
+                <div class="topbar-title">
+                    <span class="mobile-brand">JourneyCraft</span>
+                    <h1 id="pageHeading">Dashboard</h1>
+                    <p>Map experiences. Discover insights. Create better journeys.</p>
                 </div>
-                <button id="createJourneyBtn" class="btn">
-                    + Create Journey
+
+                <button type="button" id="createJourneyBtn" class="btn-primary">
+                    <span>＋</span> Create Journey
                 </button>
             </header>
 
+
+            <!-- ================= DASHBOARD ================= -->
+
             <section id="dashboardPage" class="app-page">
-                <h2>Welcome to JourneyCraft</h2>
-                <p class="muted">Understand and improve your customer experiences.</p>
+
+                <div class="welcome-banner">
+                    <div>
+                        <span class="eyebrow light-eyebrow">YOUR CUSTOMER EXPERIENCE WORKSPACE</span>
+                        <h2>Every great experience starts with understanding.</h2>
+                        <p>Explore your journeys, discover customer pain points, and find opportunities to improve.</p>
+                        <button
+                            type="button"
+                            class="btn-white"
+                            data-action="create">
+                            Create your first journey <span>→</span>
+                        </button>
+                    </div>
+
+                    <div class="welcome-art" aria-hidden="true">
+                        <div class="art-orbit orbit-one"></div>
+                        <div class="art-orbit orbit-two"></div>
+                        <div class="art-center">J</div>
+                        <span class="art-dot dot-one">✦</span>
+                        <span class="art-dot dot-two">↗</span>
+                        <span class="art-dot dot-three">♡</span>
+                    </div>
+                </div>
+
+
+                <!-- STATISTICS -->
 
                 <div class="stats-grid">
-                    <div class="panel">
-                        <p class="muted">Total Journeys</p>
-                        <p id="totalJourneys" class="stat-number">0</p>
-                    </div>
-                    <div class="panel">
-                        <p class="muted">Customers</p>
-                        <p id="totalCustomers" class="stat-number">0</p>
-                    </div>
-                    <div class="panel">
-                        <p class="muted">Pain Points</p>
-                        <p id="totalPainPoints" class="stat-number">0</p>
-                    </div>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">Total Journeys</span>
+                            <span class="stat-icon blue-icon">↗</span>
+                        </div>
+                        <strong id="totalJourneys" class="stat-number">0</strong>
+                        <span class="stat-description">Customer journeys created</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">Total Customers</span>
+                            <span class="stat-icon purple-icon">♙</span>
+                        </div>
+                        <strong id="totalCustomers" class="stat-number">0</strong>
+                        <span class="stat-description">Unique customers mapped</span>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-top">
+                            <span class="stat-label">Pain Points</span>
+                            <span class="stat-icon orange-icon">⚑</span>
+                        </div>
+                        <strong id="totalPainPoints" class="stat-number">0</strong>
+                        <span class="stat-description">Areas to improve</span>
+                    </article>
+
                 </div>
 
-                <div class="card-actions">
-                    <h2>Recent Journeys</h2>
-                    <button class="btn secondary" data-page="journeys">
-                        View All
+
+                <!-- RECENT JOURNEYS -->
+
+                <section class="content-section">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Recent Journeys</h2>
+                            <p>Your latest customer experience maps.</p>
+                        </div>
+
+                        <button type="button" class="text-button" data-page="journeys">
+                            View all journeys →
+                        </button>
+                    </div>
+
+                    <div id="recentJourneys" class="journey-list">
+                        <div class="empty-state">
+                            <div class="empty-icon">↗</div>
+                            <h3>Your journey workspace awaits</h3>
+                            <p>Create a journey to start mapping your customer experience.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+
+
+            <!-- ================= JOURNEYS ================= -->
+
+            <section id="journeysPage" class="app-page hidden">
+                <div class="empty-state">
+                    <h2>Customer Journeys</h2>
+                    <p>Your customer journey maps will appear here.</p>
+                    <button type="button" class="btn-primary" data-action="create">
+                        Create Journey
                     </button>
                 </div>
-                <div id="recentJourneys" class="journey-list"></div>
             </section>
 
-            <section id="journeysPage" class="app-page hidden"></section>
-            <section id="customersPage" class="app-page hidden"></section>
-            <section id="insightsPage" class="app-page hidden"></section>
 
-            <section id="createPage" class="app-page hidden">
-                <div class="panel">
-                    <h2>Create a Customer Journey</h2>
-                    <form id="journeyForm">
-                        <div class="field">
-                            <label for="journeyName">Journey Name *</label>
-                            <input id="journeyName" required
-                                   placeholder="Online Food Ordering">
-                        </div>
+            <!-- ================= CUSTOMERS ================= -->
 
-                        <div class="field">
-                            <label for="customerName">Customer Persona *</label>
-                            <input id="customerName" required
-                                   placeholder="Busy Student">
-                        </div>
-
-                        <div class="field">
-                            <label for="customerGoal">Customer Goal</label>
-                            <textarea id="customerGoal" rows="2"
-                                placeholder="What does the customer want to achieve?"></textarea>
-                        </div>
-
-                        <div class="field">
-                            <label for="journeyScenario">Journey Scenario</label>
-                            <textarea id="journeyScenario" rows="3"
-                                placeholder="Describe the customer's situation"></textarea>
-                        </div>
-
-                        <button id="createSubmitBtn" class="btn" type="submit">
-                            Create Journey
-                        </button>
-                        <button class="btn secondary" type="button"
-                                data-page="dashboard">Cancel</button>
-                    </form>
+            <section id="customersPage" class="app-page hidden">
+                <div class="empty-state">
+                    <h2>Customers</h2>
+                    <p>Your customers will appear here when you create journeys.</p>
                 </div>
             </section>
 
-            <footer class="muted" style="text-align:center;margin-top:40px">
-                JourneyCraft · Customer Experience &amp; Design
+
+            <!-- ================= INSIGHTS ================= -->
+
+            <section id="insightsPage" class="app-page hidden">
+                <div class="empty-state">
+                    <h2>Journey Insights</h2>
+                    <p>Discover customer pain points, emotions, and improvement opportunities.</p>
+                </div>
+            </section>
+
+
+            <!-- ================= CREATE JOURNEY ================= -->
+
+            <section id="createPage" class="app-page hidden">
+
+                <div class="page-intro">
+                    <span class="eyebrow">GET STARTED</span>
+                    <h2>Create a Customer Journey</h2>
+                    <p>Describe your customer and their goal to start building a journey map.</p>
+                </div>
+
+                <div class="panel form-panel">
+                    <form id="journeyForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="journeyName">Journey Name *</label>
+                                <input
+                                    id="journeyName"
+                                    name="journeyName"
+                                    placeholder="e.g. Online Shopping Experience"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerName">Customer Name *</label>
+                                <input
+                                    id="customerName"
+                                    name="customerName"
+                                    placeholder="e.g. Rahul Sharma"
+                                    required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="customerGoal">Customer Goal</label>
+                                <input
+                                    id="customerGoal"
+                                    name="customerGoal"
+                                    placeholder="What does the customer want to achieve?">
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="journeyScenario">Journey Scenario</label>
+                                <textarea
+                                    id="journeyScenario"
+                                    name="journeyScenario"
+                                    rows="4"
+                                    placeholder="Describe the situation or experience you want to map."></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" data-page="dashboard">
+                                Cancel
+                            </button>
+
+                            <button type="submit" id="createSubmitBtn" class="btn-primary">
+                                Create Journey →
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <p id="saveStatus" class="save-status" aria-live="polite"></p>
+
+            </section>
+
+
+            <!-- ================= CUSTOMER FEEDBACK ================= -->
+
+            <section id="feedbackPage" class="app-page hidden">
+
+                <div class="feedback-hero">
+                    <div>
+                        <span class="eyebrow light-eyebrow">VOICE OF THE CUSTOMER</span>
+                        <h2>Every opinion matters.</h2>
+                        <p>Capture customer comments, measure satisfaction, and discover ways to improve every journey stage.</p>
+                    </div>
+
+                    <div class="feedback-hero-icon" aria-hidden="true">♡</div>
+                </div>
+
+                <div class="feedback-overview-grid">
+
+                    <article class="feedback-overview-card">
+                        <span class="overview-icon blue-icon">☷</span>
+                        <div>
+                            <span class="stat-label">Feedback Entries</span>
+                            <strong id="feedbackTotalCount">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="feedback-overview-card">
+                        <span class="overview-icon green-icon">★</span>
+                        <div>
+                            <span class="stat-label">Average Rating</span>
+                            <strong id="feedbackAverageRating">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="feedback-overview-card">
+                        <span class="overview-icon purple-icon">♡</span>
+                        <div>
+                            <span class="stat-label">Positive Feedback</span>
+                            <strong id="feedbackPositiveCount">0</strong>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="feedback-layout">
+
+                    <div class="panel feedback-form-panel">
+                        <div class="section-heading">
+                            <div>
+                                <span class="eyebrow">NEW ENTRY</span>
+                                <h2>Record Customer Feedback</h2>
+                                <p>Add feedback for a particular journey stage.</p>
+                            </div>
+                            <span class="form-heading-icon">✎</span>
+                        </div>
+
+                        <div id="feedbackContent">
+                            <p class="muted">The feedback form will appear here.</p>
+                        </div>
+                    </div>
+
+                    <aside class="feedback-tip-panel">
+                        <div class="tip-icon">✦</div>
+                        <h3>Turn feedback into action</h3>
+                        <p>Customer feedback helps you understand what works and where the experience can improve.</p>
+
+                        <div class="tip-point">
+                            <span>01</span>
+                            <div>
+                                <strong>Listen</strong>
+                                <p>Capture genuine customer opinions.</p>
+                            </div>
+                        </div>
+
+                        <div class="tip-point">
+                            <span>02</span>
+                            <div>
+                                <strong>Understand</strong>
+                                <p>Identify recurring problems and needs.</p>
+                            </div>
+                        </div>
+
+                        <div class="tip-point">
+                            <span>03</span>
+                            <div>
+                                <strong>Improve</strong>
+                                <p>Use insights to make better experiences.</p>
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer class="app-footer">
+                <span>© 2026 JourneyCraft</span>
+                <span>Designed for better customer experiences.</span>
             </footer>
+
         </main>
+
     </div>
 
-    <!-- Load scripts in this order -->
+
+    <!-- LOAD SUPABASE BEFORE YOUR APPLICATION SCRIPT -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>
