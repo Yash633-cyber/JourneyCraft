@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JourneyCraft | Customer Journey Mapping</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            color: #1e293b;
+        }
+
+        button, input, textarea, select { font: inherit; }
+        button { cursor: pointer; }
+        .hidden { display: none !important; }
+
+        .auth-container {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+        }
+
+        .auth-card, .panel, .journey-card, .stage-card {
+            background: white;
+            border: 1px solid #e0e7f0;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 5px 20px rgba(25, 50, 90, .04);
+        }
+
+        .auth-card { width: 100%; max-width: 420px; }
+        .auth-card h1, .brand { color: #245cf5; }
+        .field { margin: 16px 0; }
+        .field label { display: block; font-weight: 600; margin-bottom: 7px; }
+
+        .field input, .field textarea, .field select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .field textarea { resize: vertical; }
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 16px;
+            background: #245cf5;
+            color: white;
+            font-weight: 600;
+        }
+
+        .btn.secondary { background: #eaf1ff; color: #2451bc; }
+        .btn.danger { background: #fff0f0; color: #b42318; }
+        .btn:disabled { opacity: .6; cursor: wait; }
+        .full { width: 100%; }
+        .muted { color: #64748b; }
+        .message { overflow-wrap: anywhere; font-size: 14px; }
+
+        .app-layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 245px;
+            padding: 28px 18px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .brand { font-size: 25px; font-weight: 800; margin: 0 0 18px; }
+        .nav-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 13px;
+            margin: 4px 0;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: #475569;
+        }
+
+        .nav-button.active, .nav-button:hover {
+            background: #edf3ff;
+            color: #245cf5;
+        }
+
+        .sidebar-bottom { margin-top: auto; }
+        .main-content { flex: 1; min-width: 0; padding: 30px; }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .page-title { margin: 0 0 8px; font-size: 30px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin: 22px 0;
+        }
+
+        .stat-number { font-size: 30px; font-weight: 800; margin: 8px 0; }
+        .journey-list, .stage-list { display: grid; gap: 16px; margin-top: 20px; }
+        .journey-card h3 { margin-top: 0; }
+        .card-actions, .stage-heading, .editor-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .stage-card { border-top: 4px solid #245cf5; }
+        .stage-heading { margin-bottom: 14px; }
+        .stage-heading h3 { margin: 0; color: #245cf5; }
+        .two-columns {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 16px;
+        }
+
+        .empty-state {
+            padding: 35px;
+            text-align: center;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            background: white;
+        }
+
+        .status { font-size: 13px; color: #64748b; }
+        .status.saved { color: #15803d; }
+        .status.error { color: #b42318; }
+
+        @media (max-width: 800px) {
+            .app-layout { flex-direction: column; }
+            .sidebar { width: 100%; padding: 18px; }
+            .sidebar-bottom { margin-top: 0; }
+            .main-content { padding: 18px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .two-columns { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sign-in and sign-up screen -->
+    <section id="authSection" class="auth-container">
+        <div class="auth-card">
+            <h1>JourneyCraft</h1>
+            <p class="muted">Save and manage your customer journeys.</p>
+
+            <form id="authForm">
+                <div class="field">
+                    <label for="authEmail">Email address</label>
+                    <input id="authEmail" type="email"
+                           autocomplete="email" required
+                           placeholder="you@example.com">
+                </div>
+
+                <div class="field">
+                    <label for="authPassword">Password</label>
+                    <input id="authPassword" type="password"
+                           autocomplete="current-password"
+                           minlength="6" required
+                           placeholder="At least 6 characters">
+                </div>
+
+                <button id="authSubmit" class="btn full" type="submit">
+                    Sign In
+                </button>
+
+                <button id="authToggle" class="btn secondary full"
+                        type="button" style="margin-top:10px">
+                    Need an account? Sign Up
+                </button>
+
+                <p id="authMessage" class="message" role="status"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Main application; visible after sign-in -->
+    <div id="appLayout" class="app-layout hidden">
+        <aside class="sidebar">
+            <div>
+                <h2 class="brand">JourneyCraft</h2>
+                <p class="muted">WORKSPACE</p>
+
+                <button class="nav-button active" data-page="dashboard">
+                    ▦ Dashboard
+                </button>
+                <button class="nav-button" data-page="journeys">
+                    ↗ My Journeys
+                </button>
+                <button class="nav-button" data-page="customers">
+                    ♙ Customers
+                </button>
+                <button class="nav-button" data-page="insights">
+                    ◉ Insights
+                </button>
+            </div>
+
+            <div class="sidebar-bottom">
+                <p><strong>Customer Experience</strong></p>
+                <p class="muted">Design better journeys.</p>
+                <button id="signOutBtn" class="btn secondary full">
+                    Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="muted">Workspace / Overview</p>
+                    <h1 id="pageHeading" class="page-title">Dashboard</h1>
+                </div>
+                <button id="createJourneyBtn" class="btn">
+                    + Create Journey
+                </button>
+            </header>
+
+            <section id="dashboardPage" class="app-page">
+                <h2>Welcome to JourneyCraft</h2>
+                <p class="muted">Understand and improve your customer experiences.</p>
+
+                <div class="stats-grid">
+                    <div class="panel">
+                        <p class="muted">Total Journeys</p>
+                        <p id="totalJourneys" class="stat-number">0</p>
+                    </div>
+                    <div class="panel">
+                        <p class="muted">Customers</p>
+                        <p id="totalCustomers" class="stat-number">0</p>
+                    </div>
+                    <div class="panel">
+                        <p class="muted">Pain Points</p>
+                        <p id="totalPainPoints" class="stat-number">0</p>
+                    </div>
+                </div>
+
+                <div class="card-actions">
+                    <h2>Recent Journeys</h2>
+                    <button class="btn secondary" data-page="journeys">
+                        View All
+                    </button>
+                </div>
+                <div id="recentJourneys" class="journey-list"></div>
+            </section>
+
+            <section id="journeysPage" class="app-page hidden"></section>
+            <section id="customersPage" class="app-page hidden"></section>
+            <section id="insightsPage" class="app-page hidden"></section>
+
+            <section id="createPage" class="app-page hidden">
+                <div class="panel">
+                    <h2>Create a Customer Journey</h2>
+                    <form id="journeyForm">
+                        <div class="field">
+                            <label for="journeyName">Journey Name *</label>
+                            <input id="journeyName" required
+                                   placeholder="Online Food Ordering">
+                        </div>
+
+                        <div class="field">
+                            <label for="customerName">Customer Persona *</label>
+                            <input id="customerName" required
+                                   placeholder="Busy Student">
+                        </div>
+
+                        <div class="field">
+                            <label for="customerGoal">Customer Goal</label>
+                            <textarea id="customerGoal" rows="2"
+                                placeholder="What does the customer want to achieve?"></textarea>
+                        </div>
+
+                        <div class="field">
+                            <label for="journeyScenario">Journey Scenario</label>
+                            <textarea id="journeyScenario" rows="3"
+                                placeholder="Describe the customer's situation"></textarea>
+                        </div>
+
+                        <button id="createSubmitBtn" class="btn" type="submit">
+                            Create Journey
+                        </button>
+                        <button class="btn secondary" type="button"
+                                data-page="dashboard">Cancel</button>
+                    </form>
+                </div>
+            </section>
+
+            <footer class="muted" style="text-align:center;margin-top:40px">
+                JourneyCraft · Customer Experience &amp; Design
+            </footer>
+        </main>
+    </div>
+
+    <!-- Load scripts in this order -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
