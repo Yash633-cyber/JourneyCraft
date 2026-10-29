@@ -1742,7 +1742,7 @@ function encodeSurveyPayload(value) {
     const bytes = new TextEncoder().encode(JSON.stringify(value));
     let binary = "";
     bytes.forEach((byte) => binary += String.fromCharCode(byte));
-    return btoa(binary).replace(/\\+/g, "-").replace(/\\//g, "_").replace(/=+$/g, "");
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
 
 function decodeSurveyPayload(value) {
